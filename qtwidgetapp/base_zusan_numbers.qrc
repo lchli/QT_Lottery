@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>zusan.txt</file>
+    </qresource>
+</RCC>

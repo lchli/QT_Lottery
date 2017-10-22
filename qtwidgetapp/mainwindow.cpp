@@ -1,11 +1,30 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <list>
 #include <iostream>
 #include <sstream>
+#include <QFile>
+#include <QTextStream>
+
 using namespace std;
 
-string MainWindow::zusan[]={"122","689"};
+
+
+//global func.
+static void split(std::string& s, std::string& delim,std::list< std::string >* ret)
+{
+    size_t last = 0;
+    size_t index=s.find_first_of(delim,last);
+    while (index!=std::string::npos)
+    {
+        ret->push_back(s.substr(last,index-last));
+        last=index+1;
+        index=s.find_first_of(delim,last);
+    }
+    if (index-last>0)
+    {
+        ret->push_back(s.substr(last,index-last));
+    }
+}
 
 
 void MainWindow::list_to_string(list<string>& zs,string& ret){
@@ -130,9 +149,39 @@ void MainWindow::filter_by_kuadu(list<string>& zs,const string& dm){
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    zusan(new list<string>)
 {
     ui->setupUi(this);
+
+    QFile inputFile(":/zusan.txt");
+    inputFile.open(QIODevice::ReadOnly|QIODevice::Text);
+
+    QTextStream in(&inputFile);
+    QString all;
+    QString div=" ";
+
+    while(true){
+        QString line = in.readLine();
+        if(line.isEmpty()){
+            break;
+        }
+        if(!all.isEmpty()){
+            all+=div;
+        }
+        all+=line;
+
+    }
+
+    inputFile.close();
+
+    string base_zusan=all.toStdString();
+    cout<<"base_zusan:"<<base_zusan<<endl;
+    string div_std=div.toStdString();
+
+    split(base_zusan,div_std,zusan);
+
+
 }
 
 MainWindow::~MainWindow()
@@ -150,7 +199,7 @@ void MainWindow::on_pushButton_clicked()
     string shama=ui->lineEdit_shama->text().toStdString();
 
 
-    list<string> zs(zusan, zusan+sizeof(zusan)/sizeof(zusan[0]));
+    list<string> zs(*zusan);
 
     if(!dm.empty()){
         filter_by_danma(zs,dm);

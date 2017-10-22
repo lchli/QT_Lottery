@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <string>
-#include <vector>
+#include <list>
 
 using namespace std;
 
@@ -26,7 +26,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    static std::string zusan[];
+    list<string> *zusan;
     static void list_to_string(list<string>&,string&);
     static void filter_by_danma(list<string>&,const string&);
     static void filter_by_hewei(list<string>&,const string&);

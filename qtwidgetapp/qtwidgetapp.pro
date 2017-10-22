@@ -36,3 +36,6 @@ FORMS += \
 CONFIG += mobility
 MOBILITY = 
 
+RESOURCES += \
+    base_zusan_numbers.qrc
+
