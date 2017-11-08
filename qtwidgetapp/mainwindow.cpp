@@ -4,6 +4,11 @@
 #include <sstream>
 #include <QFile>
 #include <QTextStream>
+#include "condition.h"
+#include "danma.h"
+#include "shama.h"
+#include "hewei.h"
+#include "kuadu.h"
 
 using namespace std;
 
@@ -194,29 +199,47 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     string dm=ui->lineEdit->text().toStdString();
-    string hewei=ui->lineEdit_hewei->text().toStdString();
-    string kuadu=ui->lineEdit_kuadu->text().toStdString();
-    string shama=ui->lineEdit_shama->text().toStdString();
+    string hw=ui->lineEdit_hewei->text().toStdString();
+    string kd=ui->lineEdit_kuadu->text().toStdString();
+    string sm=ui->lineEdit_shama->text().toStdString();
 
 
     list<string> zs(*zusan);
+    list<condition*> conditions;
+
 
     if(!dm.empty()){
-        filter_by_danma(zs,dm);
+        conditions.push_back(new danma(zs,dm));
+       // filter_by_danma(zs,dm);
     }
 
-    if(!hewei.empty()){
-        filter_by_hewei(zs,hewei);
+    if(!hw.empty()){
+         conditions.push_back(new hewei(zs,hw));
+        //filter_by_hewei(zs,hw);
     }
 
-    if(!kuadu.empty()){
-        filter_by_kuadu(zs,kuadu);
+    if(!kd.empty()){
+         conditions.push_back(new kuadu(zs,kd));
+       // filter_by_kuadu(zs,kd);
     }
 
-    if(!shama.empty()){
-        filter_by_shama(zs,shama);
+    if(!sm.empty()){
+         conditions.push_back(new shama(zs,sm));
+       // filter_by_shama(zs,sm);
     }
 
+     cout<<"conditions size:"<<conditions.size()<<endl;
+
+    list<condition*>::iterator it=conditions.begin();
+    while(it!=conditions.end()){
+        (*it)->filter();
+    }
+
+    it=conditions.begin();
+    while(it!=conditions.end()){
+        delete (*it);
+    }
+    conditions.clear();
 
     string ret;
     if(!zs.empty()){

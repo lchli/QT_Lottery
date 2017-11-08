@@ -2,3 +2,5 @@
 condition::condition(list<string> &zs, string &dm):mSource(zs),mInput(dm){
 
 }
+
+condition::~condition(){}

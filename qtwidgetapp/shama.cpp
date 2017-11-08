@@ -1,27 +1,25 @@
-#include "danma.h"
-#include <iostream>
 #include "shama.h"
+#include <iostream>
+#include "danma.h"
 
-danma::danma(list<string>& zs,string& dm):condition(zs,dm){
+shama::shama(list<string>& zs,string& dm):condition(zs,dm){
 
 }
 
-void danma::filter(){
-     //cout<<"danma mInput:"<<mInput<<endl;
-
+void shama::filter(){
     list<string>::iterator it=mSource.begin();
     while(it!=mSource.end()){
-        bool valid=false;
+        bool valid=true;
 
         for(string::size_type i=0;i<mInput.size();i++){
             if(it->find(mInput[i])!=string::npos){
-                valid=true;
+                valid=false;
                 break;
             }
         }
 
         if(!valid){
-            cout<<"danma erase:"<<*it<<endl;
+            cout<<"erase:"<<*it<<endl;
             it=mSource.erase(it);
 
         }else{
@@ -30,7 +28,7 @@ void danma::filter(){
     }
 }
 
-condition* danma::reverse(){
+condition* shama::reverse(){
 
-    return new shama(mSource,mInput);
+    return new danma(mSource,mInput);
 }

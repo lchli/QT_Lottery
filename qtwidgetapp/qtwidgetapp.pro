@@ -28,13 +28,19 @@ SOURCES += \
         mainwindow.cpp \
     danma.cpp \
     condition.cpp \
-    utils.cpp
+    utils.cpp \
+    shama.cpp \
+    hewei.cpp \
+    kuadu.cpp
 
 HEADERS += \
         mainwindow.h \
     condition.h \
     danma.h \
-    utils.h
+    utils.h \
+    shama.h \
+    hewei.h \
+    kuadu.h
 
 FORMS += \
         mainwindow.ui

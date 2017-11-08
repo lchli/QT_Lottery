@@ -12,6 +12,7 @@ protected:
 public:
 
     condition(list<string>& zs,string& dm);
+    virtual ~condition();
 
    virtual void filter()=0;
 
