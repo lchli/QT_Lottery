@@ -210,34 +210,34 @@ void MainWindow::on_pushButton_clicked()
 
     if(!dm.empty()){
         conditions.push_back(new danma(zs,dm));
-       // filter_by_danma(zs,dm);
     }
 
     if(!hw.empty()){
-         conditions.push_back(new hewei(zs,hw));
-        //filter_by_hewei(zs,hw);
+        conditions.push_back(new hewei(zs,hw));
     }
 
     if(!kd.empty()){
-         conditions.push_back(new kuadu(zs,kd));
-       // filter_by_kuadu(zs,kd);
+        conditions.push_back(new kuadu(zs,kd));
     }
 
     if(!sm.empty()){
-         conditions.push_back(new shama(zs,sm));
-       // filter_by_shama(zs,sm);
+        conditions.push_back(new shama(zs,sm));
     }
 
-     cout<<"conditions size:"<<conditions.size()<<endl;
+    cout<<"base conditions size:"<<conditions.size()<<endl;
+
+
 
     list<condition*>::iterator it=conditions.begin();
     while(it!=conditions.end()){
         (*it)->filter();
+        it++;
     }
 
     it=conditions.begin();
     while(it!=conditions.end()){
         delete (*it);
+        it++;
     }
     conditions.clear();
 

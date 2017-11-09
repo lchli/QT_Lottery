@@ -7,7 +7,7 @@ danma::danma(list<string>& zs,string& dm):condition(zs,dm){
 }
 
 void danma::filter(){
-     //cout<<"danma mInput:"<<mInput<<endl;
+     cout<<"danma mInput:"<<mInput<<endl;
 
     list<string>::iterator it=mSource.begin();
     while(it!=mSource.end()){
